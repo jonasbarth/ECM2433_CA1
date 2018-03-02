@@ -1,0 +1,27 @@
+#!/bin/bash
+
+echo Compiling ${1}.c
+
+gcc -ansi -I./ -c ${1}.c -o ${1}.o
+gcc -ansi -I./ -c fileIO.c -o fileIO.o
+gcc -ansi -I./ -c sort.c -o sort.o
+gcc -ansi -I./ -c tree.c -o tree.o
+
+
+if [[ $? -eq 0 ]]
+then
+	echo Program compiled ok
+	echo
+	echo Linking
+	
+	gcc -L./ ${1}.o fileIO.o sort.o tree.o -o ${1}
+	
+	if [[ $? -eq 0 ]]
+	then
+		echo Program compiled and linked ok
+	else
+		echo Link failed
+	fi
+else
+	echo compile failed
+fi
